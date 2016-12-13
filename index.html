@@ -1,0 +1,84 @@
+<!doctype html>
+    <html>
+        <head>
+            <title>A Physic Game</title>
+            <meta charset="utf-8" />
+        </head>
+        <body>
+            <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+
+            <input id="randomized" type="hidden"/>
+             
+            <div id="Guess">
+                <span id="description">Guess what letter I am thinking of!</span><br>
+                <input id="input" type="text"/>
+                <button id="userInput">Guess</button>
+                <br>
+                <span id="guessCount"> Guesses:</span>
+                <br>
+                <span id="winCount"> Wins:</span>
+                <br>
+                <span id ="lossCount"> Losses:</span>
+            </div>
+            </div>
+          
+            <script type="text/javascript">
+            var guessCount = 10;
+            var winCount = 0;
+            var lossCount = 0;
+            var letters = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"];
+
+            var randomLetter = letters[Math.floor((Math.random() * letters.length))]; 
+            console.log(randomLetter);
+
+            document.getElementById('guessCount').innerHTML = "Guesses: " + guessCount;
+
+            function resetCount() {
+                guessCount = 10;
+                document.getElementById("guessCount").innerHTML = "Guesses: " + guessCount;
+            } 
+
+            function newLetter() {
+                randomLetter = letters[Math.floor((Math.random() * letters.length))];
+            }
+            console.log(randomLetter);
+           
+            $('input[type=text]').val (function () {
+                return this.value.toLowerCase();
+            })
+            
+           $("#userInput").on("click", function() {
+
+                var guess = document.getElementById("input").value;
+
+                if (guess == randomLetter){
+                winCount ++;
+                guessCount = 10;
+                alert("You Got It");
+                document.getElementById('winCount').innerHTML = "Wins: " + winCount;
+                newLetter();
+                console.log(randomLetter);
+   
+
+                } else if (guess !== randomLetter){
+                guessCount --;
+                document.getElementById('guessCount').innerHTML = "Guess: " + guessCount;
+                }
+
+
+                if (guessCount == 0){
+                alert("You Lost! The answer is " + randomLetter)
+                lossCount ++;
+                document.getElementById('lossCount').innerHTML = "Losses: " + lossCount;
+                resetCount();
+                newLetter();
+                console.log(randomLetter);
+            }
+           
+           });    
+               
+
+            </script>
+             
+        </body>
+    </html>
